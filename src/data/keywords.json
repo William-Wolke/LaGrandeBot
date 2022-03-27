@@ -1,7 +1,7 @@
 [
     {
         "keyword": "la",
-        "callBack": "*Lukt lukt* hörde jag la som i LagrandeHar ni testat LaGrandes uteservering, det sägs att den är i världsklass."
+        "callBack": "*Lukt lukt* hörde jag **la** som i Lagrande\nHar ni testat LaGrandes uteservering, det sägs att den är i världsklass."
     }, 
     {
         "keyword": "grande",
@@ -12,7 +12,7 @@
         "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
     },
     {
-        "keyword":"pizza",
+        "keyword":"lagrande",
         "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
     }
 ]

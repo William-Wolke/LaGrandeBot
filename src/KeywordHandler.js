@@ -1,13 +1,19 @@
-// import keywords from ;
+import axios from "axios";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-const keywords = require('./data/keywords.json');
+//const keywords = require('./data/keywords.json');
 
 export const KeywordHandler = (client, msg) => {
-    keywords.map((item) => {
-        if (msg.content === item.keyword) {
-            msg.reply(item.callBack);
-            return;
-        }
+    axios.get("http://192.168.0.122:8000/keywords")
+    .then(response => {
+        let words = msg.content.split(" ");
+        response.data.map((item) => {
+            words.map((word) => {
+                if (word.toLowerCase() === item.keyword) {
+                    msg.reply(item.callBack);
+                    return;
+                }
+            });
+        });
     });
 }

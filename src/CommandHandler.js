@@ -1,6 +1,6 @@
 // import menu from './src/data/menu.json';
 // import commands from './src/data/commands.json';
-import { CreateCommandList, CreateMenuList, GetRandomInt } from './ListHandler.js';
+import { CreateCommandList, CreateMenuList, CreateLeaderBoard, GetRandomInt } from './ListHandler.js';
 import { createRequire } from "module";
 import axios from 'axios';
 import cors from 'cors';
@@ -111,16 +111,16 @@ export const ExecuteCommand = (client, msg, command) => {
             msg.reply("Skriv såhär för att skapa\n!skapa <vilken lista tex: meny> <pris> <valuta> <emoji> <namn, kan vara hur många ord som helst>")
         }
         else if (commandWords[1] === "meny") {
-            let name = commandWords.filter((item, index) => index >= 5).join(" ");
 
-            let newMenuItem = {
-                name: name,
-                price: commandWords[2],
-                currency: commandWords[3],
-                emoji: commandWords[4]
-            }
+            let formData = new URLSearchParams();
+            let name = commandWords.filter((item, index) => index >= 5).join(" ");
             
-            axios.post("http://192.168.0.122:8000/createMenuItem", newMenuItem)
+            formData.append('name', name);
+            formData.append('price', commandWords[2]);
+            formData.append('currency', commandWords[3]);
+            formData.append('emoji', commandWords[4]);
+            
+            axios.post("http://192.168.0.122:8000/createMenuItem", formData)
             .then(() => {
                msg.reply("Skapad, smaklig måltid :yum:")
             })
@@ -129,7 +129,48 @@ export const ExecuteCommand = (client, msg, command) => {
                 console.error(error);
             });
         }
-        
-        
+        else if (commandWords[1] === "person") {
+            let formData = new URLSearchParams();
+
+            formData.append("name", msg.author.username);
+            formData.append("money", 500);
+            formData.append("amountBought", 0);
+            formData.append("priceBought", 0);
+
+            axios.post("http://192.168.0.122:8000/createPerson", formData)
+            .then((res) => {
+                msg.reply("Du är skapad :pray:");
+            })
+            .catch(() => {
+                msg.reply("William har gjort fel... igen :pensive: :skull:")
+            });
+        }
+        else if (commandWords[1] === 'nyckelord') {
+            let callBack = commandWords.filter((item, index) => index >= 3).join(" "); 
+            let formData = new URLSearchParams();
+            console.log(commandWords[2], callBack);
+            formData.append("keyword", commandWords[2]);
+            formData.append("callBack", callBack);
+
+            axios.post("http://192.168.0.122:8000/createKeyword", formData)
+            .then((response) => {
+                msg.reply("Nyckelord skapat");
+            })
+            .catch((error) => {
+                msg.reply("William har gjort fel... igen :pensive: :skull:... igen :coolsol:");
+                console.error(error);
+            });
+        }
     }
+    else if (command === 'topplista') {
+        axios.get("http://192.168.0.122:8000/leaderboard")
+        .then((response) => {
+            console.log(response.data);
+            let list = CreateLeaderBoard(response.data);
+            msg.reply(`Här är topplistan:\n${list}`);
+        })
+        .catch(() => {
+
+        });
+    } 
 }

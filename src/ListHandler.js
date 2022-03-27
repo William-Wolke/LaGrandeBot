@@ -14,6 +14,14 @@ export const CreateMenuList = (values) => {
     return list;
 }
 
+export const CreateLeaderBoard = (values) => {
+    let list = '';
+    values.map((item, index) => {
+        list += `#${index+1} ${item.name}. Pengar: ${item.money} Saker köpta: ${item.amountBought} Spenderade pengar: ${item.priceBought}\n`;
+    })
+    return list;
+}
+
 export const GetRandomInt = (max) => {
     return Math.floor(Math.random() * max);
 }
