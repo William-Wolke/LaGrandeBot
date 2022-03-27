@@ -1,6 +1,10 @@
-import config from './src/data/config.json';
-import { CheckCommand } from './src/CommandHandler';
-import { KeywordHandler } from './src/KeywordHandler';
+//import config from ;
+import { CheckCommand } from './src/CommandHandler.js';
+import { KeywordHandler } from './src/KeywordHandler.js';
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+const config = require('./src/data/config.json');
 
 // Run dotenv
 require('dotenv').config();
@@ -22,10 +26,10 @@ client.on('messageCreate', (msg) => {
     if (msg.author.bot) return false;
 
     if(msg.content.startsWith(config.callName)) {
-        CheckCommand(msg);
+        CheckCommand(client, msg);
     }
     else {
-        KeywordHandler(msg);
+        KeywordHandler(client, msg);
     }
 });
 

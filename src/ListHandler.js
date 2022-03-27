@@ -9,7 +9,7 @@ export const CreateCommandList = (prefix, values) => {
 export const CreateMenuList = (values) => {
     let list = '';
     values.map((item) => {
-        list += `${item.name}: ${item.price}${item.currency}\n`;
+        list += `${item.name}: ${item.price}${item.currency}${item.emoji}\n`;
     })
     return list;
 }

@@ -2,16 +2,31 @@
     {
         "name": "Caprichosa",
         "price": 100,
-        "currency": "kr"
+        "currency": "kr",
+        "emoji": ":pizza:"
     },
     {
         "name": "Margarita",
         "price": 100,
-        "currency": "kr"
+        "currency": "kr",
+        "emoji": ":pizza:"
     },
     {
         "name": "Vesuvio",
         "price": 100,
-        "currency": "kr"  
+        "currency": "kr",
+        "emoji": ":pizza:"
+    },
+    {
+        "name": "Schnitzel med Lime",
+        "price": 100,
+        "currency": "kr",
+        "emoji": ":yum:"
+    },
+    {
+        "name": "Schnitzel med Citron",
+        "price": 10,
+        "currency": "£",
+        "emoji": ":lemon:"
     }
 ]
