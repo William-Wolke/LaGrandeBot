@@ -1,0 +1,14 @@
+[
+    {
+        "keyword": "la",
+        "callBack": "*Lukt lukt* hörde jag la som i LagrandeHar ni testat LaGrandes uteservering, det sägs att den är i världsklass."
+    }, 
+    {
+        "keyword": "grande",
+        "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
+    }, 
+    {
+        "keyword":"pizza",
+        "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
+    }
+]

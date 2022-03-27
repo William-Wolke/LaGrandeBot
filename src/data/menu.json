@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Caprichosa",
+        "price": 100,
+        "currency": "kr"
+    },
+    {
+        "name": "Margarita",
+        "price": 100,
+        "currency": "kr"
+    },
+    {
+        "name": "Vesuvio",
+        "price": 100,
+        "currency": "kr"  
+    }
+]
