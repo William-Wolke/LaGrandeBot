@@ -22,6 +22,14 @@ export const CreateLeaderBoard = (values) => {
     return list;
 }
 
+export const SimpleList = (values, attribute) => {
+    let list = '';
+    values.map((item, index) => {
+        list += `#${index}: ${item[attribute]}\n`;
+    })
+    return list;
+}
+
 export const GetRandomInt = (max) => {
     return Math.floor(Math.random() * max);
 }

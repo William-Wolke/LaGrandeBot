@@ -1,6 +1,6 @@
 // import menu from './src/data/menu.json';
 // import commands from './src/data/commands.json';
-import { CreateCommandList, CreateMenuList, CreateLeaderBoard, GetRandomInt } from './ListHandler.js';
+import { CreateCommandList, CreateMenuList, CreateLeaderBoard, SimpleList, GetRandomInt } from './ListHandler.js';
 import { createRequire } from "module";
 import axios from 'axios';
 import cors from 'cors';
@@ -9,6 +9,7 @@ const require = createRequire(import.meta.url);
 //const menu = require('./data/menu.json');
 const commands = require('./data/commands.json');
 const config = require('./data/config.json');
+const games = require('./data/games.json');
 
 export const CheckCommand = (client, msg) => {
     let valid = false;
@@ -23,13 +24,13 @@ export const CheckCommand = (client, msg) => {
         }
     });
     if (!valid) {
-        msg.reply('Ogiltigt command, skriv !help för psykisk hjälp.');
+        msg.reply('Ogiltigt command, skriv !hjälp för psykisk hjälp.');
     }
 }
 
 export const ExecuteCommand = (client, msg, command) => {
     let commandWords = msg.content.split(' ');
-    if (command === 'help') {
+    if (command === 'hjälp') {
         let commandList = CreateCommandList(config.callName, commands);
         msg.reply(`Hej ${msg.author.username}, här är alla kommand du söker: \n` + commandList);
     }
@@ -173,5 +174,28 @@ export const ExecuteCommand = (client, msg, command) => {
         .catch(() => {
 
         });
-    } 
+    }
+    else if (command === 'spela') {
+        if (commandWords.length === 1) {
+            let list = SimpleList(games, 'name');
+            msg.reply(`Spellistan:\n${list}`);
+        }
+        else if (commandWords[1] === 'bloons') {
+            if (commandWords.length === 2) {
+                let list = SimpleList(games[0].heroes, 'name');
+                msg.reply(`Du vill spela bloons på lektions/arbetstid bra val\nDe här hjältarna finns det skriv deras namn efter ${config.callName}spela bloons\n${list}`);
+            }
+            else if (commandWords.length === 3) {
+                games[0].heroes.map((hero) => {
+                    console.log()
+                    if (commandWords[2].toLowerCase() === hero.name) {
+                        msg.reply(`${hero.message}`);
+                    }
+                })
+            }
+        }
+        else if (commandWords[1] === 'countersnipe') {
+
+        }
+    }
 }

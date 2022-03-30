@@ -14,5 +14,17 @@
     {
         "keyword":"lagrande",
         "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
+    },
+    {
+        "keyword":"vafan",
+        "callBack": "Ajabaja."
+    },
+    {
+        "keyword":"mög",
+        "callBack": "Ej du runn under tollorna eller?"
+    },
+    {
+        "keyword":"skåne",
+        "callBack": "Aah, sluuda nu, va ente en sån traderöv, vad säjeer du ejentligeh om Danmerk?"
     }
 ]

@@ -1,0 +1,24 @@
+[
+    {
+        "name": "bloons",
+        "message": "Du spelar bloons med",
+        "heroes": [
+            {
+                "name": "fusty",
+                "message": "Jätteklänning!!!:monkey:"
+            },
+            {
+                "name": "benji",
+                "message": "Party monkeys!!!:monkey:"
+            },
+            {
+                "name": "obyn",
+                "message": "Jag är en med naturen eller vad fan obyn nu säger :person_shrugging:!!!:monkey:"
+            }
+        ]
+    },
+    {
+        "name": "countersnipe",
+        "message": "Du snajpar countersnipe"
+    }
+]
