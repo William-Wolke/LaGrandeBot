@@ -20,7 +20,7 @@ const client = new Client({
 });
 
 client.on('ready', () => {
-    client.user.setStatus('Gaming rn')
+    client.user.setActivity("beep boop", {type: "PLAYING"});
     console.log(`Logged in as ${client.user.tag}!`);
 });
 

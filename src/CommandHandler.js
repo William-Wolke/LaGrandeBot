@@ -88,6 +88,7 @@ export const ExecuteCommand = (client, msg, command) => {
         else if (commandWords[1].startsWith("<@")) {
             const quoteChannel = client.channels.cache.get("694162172351348736");
             quoteChannel.messages.fetch({ limit: 100 }).then(messages => {
+                console.log(messages);
                 console.log(`Received ${messages.size} messages`);
                 //Iterate through the messages here with the variable "messages".
                 let messageArray = [];
@@ -95,8 +96,8 @@ export const ExecuteCommand = (client, msg, command) => {
                     messageArray.push(item);
                 });
 
-                let messagesWithPerson = messageArray.filter(item => item.mentions.users === commandWords[1]);
-                console.log(messages);
+                let messagesWithPerson = messageArray.filter(item => item.mentions.users.first() === commandWords[1]);
+                console.log(messagesWithPerson);
                 
                 let message = messagesWithPerson[GetRandomInt(messagesWithPerson.length)];
 
