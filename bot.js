@@ -2,7 +2,6 @@
 import { CheckCommand } from './src/CommandHandler.js';
 import { KeywordHandler } from './src/KeywordHandler.js';
 import { createRequire } from "module";
-import axios from 'axios';
 const require = createRequire(import.meta.url);
 
 const config = require('./src/data/config.json');

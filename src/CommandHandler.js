@@ -3,7 +3,6 @@
 import { CreateCommandList, CreateMenuList, CreateLeaderBoard, SimpleList, GetRandomInt } from './ListHandler.js';
 import { createRequire } from "module";
 import axios from 'axios';
-import cors from 'cors';
 const require = createRequire(import.meta.url);
 
 //const menu = require('./data/menu.json');
@@ -189,7 +188,8 @@ export const ExecuteCommand = (client, msg, command) => {
                 games[0].heroes.map((hero) => {
                     console.log()
                     if (commandWords[2].toLowerCase() === hero.name) {
-                        msg.reply(`${hero.message}`);
+                        let outcome = hero.outcomes[GetRandomInt(hero.outcomes.length)];
+                        msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: ${outcome.value}kr`);
                     }
                 })
             }

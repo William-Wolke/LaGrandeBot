@@ -1,4 +1,6 @@
 {
     "callName": "!",
-    "introduction": "Hej mitt namn är LaGrandeBot:robot:. Jag kan hjälpa till med diverse saker och säger blip blop.\nSkriv !help för att se mina kommand."
+    "introduction": "Hej mitt namn är LaGrandeBot:robot:. Jag kan hjälpa till med diverse saker och säger blip blop.\nSkriv !help för att se mina kommand.",
+    "menuLink": "http://192.168.0.122:8000/menu",
+    "": "http://192.168.0.122:8000/createMenuItem"
 }

@@ -5,15 +5,45 @@
         "heroes": [
             {
                 "name": "fusty",
-                "message": "Jätteklänning!!!:monkey:"
+                "message": "Jätteklänning!!!:monkey:",
+                "outcomes": [
+                    {
+                        "message": "Du satte Fusty tillsammans med snipermonkey längst bak och fusty når inte ballongerna.\nDu förlorar på runda 40 eftersom Fusty inte kunde smälla moaben.",
+                        "value": 40
+                    },
+                    {
+                        "message": "Du glum:skull: att köpa camosikten till dina apor och fusty:monkey: glömde glasögonen hemma.\nDu förlorar på runda 34 eftersom att coma ballongerna smyger sig förbi.",
+                        "value": 34
+                    }
+                ]
             },
             {
                 "name": "benji",
-                "message": "Party monkeys!!!:monkey:"
+                "message": "Party monkeys!!!:monkey:",
+                "outcomes": [
+                    {
+                        "message": "Du satte Fusty tillsammans med snipermonkey längst bak och fusty når inte ballongerna.\nDu förlorar på runda 40 eftersom Fusty inte kunde smälla moaben.",
+                        "value": 40
+                    },
+                    {
+                        "message": "Du glum:skull: att köpa camosikten till dina apor och fusty:monkey: glömde glasögonen hemma.\nDu förlorar på runda 34 eftersom att coma ballongerna smyger sig förbi.",
+                        "value": 34
+                    }
+                ]
             },
             {
                 "name": "obyn",
-                "message": "Jag är en med naturen eller vad fan obyn nu säger :person_shrugging:!!!:monkey:"
+                "message": "Jag är en med naturen eller vad fan obyn nu säger :person_shrugging:!!!:monkey:",
+                "outcomes": [
+                    {
+                        "message": "Du satte Fusty tillsammans med snipermonkey längst bak och fusty når inte ballongerna.\nDu förlorar på runda 40 eftersom Fusty inte kunde smälla moaben.",
+                        "value": 40
+                    },
+                    {
+                        "message": "Du glum:skull: att köpa camosikten till dina apor och fusty:monkey: glömde glasögonen hemma.\nDu förlorar på runda 34 eftersom att coma ballongerna smyger sig förbi.",
+                        "value": 34
+                    }
+                ]
             }
         ]
     },
