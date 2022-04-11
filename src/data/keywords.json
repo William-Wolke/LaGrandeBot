@@ -1,30 +1,30 @@
 [
     {
-        "keyword": "la",
+        "name": "la",
         "callBack": "*Lukt lukt* hörde jag **la** som i Lagrande\nHar ni testat LaGrandes uteservering, det sägs att den är i världsklass."
     }, 
     {
-        "keyword": "grande",
+        "name": "grande",
         "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
     }, 
     {
-        "keyword":"pizza",
+        "name":"pizza",
         "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
     },
     {
-        "keyword":"lagrande",
+        "name":"lagrande",
         "callBack": "Har ni testat LaGrandes uteservering, det sägs att den är i världsklass."
     },
     {
-        "keyword":"vafan",
+        "name":"vafan",
         "callBack": "Ajabaja."
     },
     {
-        "keyword":"mög",
+        "name":"mög",
         "callBack": "Ej du runn under tollorna eller?"
     },
     {
-        "keyword":"skåne",
+        "name":"skåne",
         "callBack": "Aah, sluuda nu, va ente en sån traderöv, vad säjeer du ejentligeh om Danmerk?"
     }
 ]

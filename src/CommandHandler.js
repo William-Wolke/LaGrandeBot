@@ -5,7 +5,6 @@ import { createRequire } from "module";
 import axios from 'axios';
 const require = createRequire(import.meta.url);
 
-//const menu = require('./data/menu.json');
 const commands = require('./data/commands.json');
 const config = require('./data/config.json');
 const games = require('./data/games.json');
@@ -135,8 +134,8 @@ export const ExecuteCommand = (client, msg, command) => {
 
             formData.append("name", msg.author.username);
             formData.append("money", 500);
-            formData.append("amountBought", 0);
-            formData.append("priceBought", 0);
+            formData.append("bought", 0);
+            formData.append("spent", 0);
 
             axios.post("http://192.168.0.122:8000/createPerson", formData)
             .then((res) => {

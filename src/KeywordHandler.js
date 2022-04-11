@@ -1,7 +1,4 @@
 import axios from "axios";
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-//const keywords = require('./data/keywords.json');
 
 export const KeywordHandler = (client, msg) => {
     axios.get("http://192.168.0.122:8000/keywords")
