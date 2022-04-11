@@ -24,8 +24,8 @@ export const CreateLeaderBoard = (values) => {
 
 export const SimpleList = (values, attribute) => {
     let list = '';
-    values.map((item, index) => {
-        list += `#${index}: ${item[attribute]}\n`;
+    values.map((item) => {
+        list += `${item[attribute]}\n`;
     })
     return list;
 }

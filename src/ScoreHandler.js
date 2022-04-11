@@ -1,29 +1,46 @@
 import axios from "axios"
+import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
 const config = require('./data/config.json');
+require('dotenv').config();
 
-export const AddMoney = (user, value) => {
+export const UpdateMoney = async (user, money) => {
+    let success = false;
     let formData = new URLSearchParams();
 
-    formData.append('user', user);
-    formData.append('value', value);
-    
-    axios.post(config.addMoneyLink);
-}
+    formData.append("name", user);
+    formData.append("money", money);
 
-export const AddMeal = (user, value) => {
-    let formData = new URLSearchParams();
-
-    formData.append('user', user);
-    formData.append('value', value);
-
-    axios.post(config.foodTransaktion, formData)
-    .then((response) => {
-
+    await axios.post((config.updateMoneyLink), formData)
+    .then((result) => {
+        console.log(result.data.message);
+        success = true;
     })
     .catch((error) => {
-        msg
+        console.log(result.data.message);
+        success = false;
     });
-    
+
+    return success
+}
+
+export const FoodTransaction = async (user, money) => {
+    let success = false;
+    let formData = new URLSearchParams();
+
+    formData.append("name", user);
+    formData.append("money", money);
+
+    await axios.post(process.env.db_url + config.foodTransactionLink, formData)
+    .then((result) => {
+        console.log(result.data);
+        success = true;
+    })
+    .catch((error) => {
+        console.error(error);
+        success = false;
+    });
+
+    return success;
 }

@@ -1,0 +1,10 @@
+[
+    {
+        "name": "person",
+        "respone": "För att skapa dig själv skriv:\n!skapa person jag"
+    },
+    {
+        "name": "meny",
+        "response": "Skriv såhär för att skapa en måltid\n!skapa meny <namn inom (dubbel citattecken)> <pris> <valuta> <emoji>"
+    }
+]

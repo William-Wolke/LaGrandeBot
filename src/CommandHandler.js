@@ -1,13 +1,14 @@
-// import menu from './src/data/menu.json';
-// import commands from './src/data/commands.json';
 import { CreateCommandList, CreateMenuList, CreateLeaderBoard, SimpleList, GetRandomInt } from './ListHandler.js';
 import { createRequire } from "module";
+import { GetCitations } from './components/Tools.js';
+import { UpdateMoney, FoodTransaction } from './ScoreHandler.js';
 import axios from 'axios';
 const require = createRequire(import.meta.url);
 
 const commands = require('./data/commands.json');
 const config = require('./data/config.json');
 const games = require('./data/games.json');
+const create = require('./data/create.json');
 
 export const CheckCommand = (client, msg) => {
     let valid = false;
@@ -33,19 +34,25 @@ export const ExecuteCommand = (client, msg, command) => {
         msg.reply(`Hej ${msg.author.username}, här är alla kommand du söker: \n` + commandList);
     }
     else if(command === 'beställ') {
-        axios.get("http://192.168.0.122:8000/menu")
+        axios.get(config.menuLink)
         .then((menu) => {
-            console.log(menu.data);
             if (commandWords.length === 1) {
                 let list = CreateMenuList(menu.data);
                 msg.reply(`Hej här är våran meny:\n${list}`);
             }
             else if (commandWords[1] === "slump") {
                 let order = menu.data[GetRandomInt(menu.data.length)];
-                msg.reply(`Hej ${msg.author.username}, här kommer en rykande färsk ${order.name}${order.emoji}`);
+                FoodTransaction(msg.author.username, order.price)
+                .then((result) => {
+                    if (result) {
+                        msg.reply(`Hej ${msg.author.username}, här kommer en rykande färsk ${order.name}${order.emoji}`);
+                    }
+                    else {
+                        msg.reply(`Hej ${msg.author.username}, här kommer ... inget, för William har gjort fel.`);
+                    }
+                });
             }
             else {
-                console.log("extra speciale");
                 let orderName = "";
                 commandWords.map((item, index) => {
                     if (index !== 0) {
@@ -59,7 +66,15 @@ export const ExecuteCommand = (client, msg, command) => {
                 });
                 menu.data.map((item) => {
                     if (orderName.toLowerCase() === item.name.toLocaleLowerCase()) {
-                        msg.reply(`Hej ${msg.author.username}, här kommer en rykande färsk ${item.name}${item.emoji}`);
+                        FoodTransaction(msg.author.username, item.price)
+                        .then((result) => {
+                            if (result) {
+                                msg.reply(`Hej ${msg.author.username}, här kommer en rykande färsk ${item.name}${item.emoji}`);
+                            }
+                            else {
+                                msg.reply(`Hej ${msg.author.username}, här kommer ... inget, för William har gjort fel.`);
+                            }
+                        });
                     }
                 })
             }
@@ -108,32 +123,43 @@ export const ExecuteCommand = (client, msg, command) => {
     }
     else if (command === 'skapa') {
         if (commandWords.length === 1) {
-            msg.reply("Skriv såhär för att skapa\n!skapa <vilken lista tex: meny> <pris> <valuta> <emoji> <namn, kan vara hur många ord som helst>")
+            let list = SimpleList(create, "name");
+            msg.reply(`Dessa saker kan du skapa:\n${list}`);
         }
-        else if (commandWords[1] === "meny") {
-
-            let formData = new URLSearchParams();
-            let name = commandWords.filter((item, index) => index >= 5).join(" ");
-            
-            formData.append('name', name);
-            formData.append('price', commandWords[2]);
-            formData.append('currency', commandWords[3]);
-            formData.append('emoji', commandWords[4]);
-            
-            axios.post("http://192.168.0.122:8000/createMenuItem", formData)
-            .then(() => {
-               msg.reply("Skapad, smaklig måltid :yum:")
-            })
-            .catch((error) => {
-                msg.reply("William har gjort fel");
-                console.error(error);
+        else if (commandWords.length === 2) {
+            create.map((item) => {
+                if (commandWords[1] === item.name) {
+                    msg.reply(`${item.response}`);
+                }
             });
         }
-        else if (commandWords[1] === "person") {
+        else if (commandWords[1] === "meny" && commandWords.length >= 5) {
+
+            let formData = new URLSearchParams();
+            GetCitations(commandWords)
+            .then(({ name, ending}) => {
+                console.log(ending);
+            
+                formData.append('name', name);
+                formData.append('price', commandWords[ending + 1]);
+                formData.append('currency', commandWords[ending + 2]);
+                formData.append('emoji', commandWords[ending + 3]);
+                
+                axios.post("http://192.168.0.122:8000/createMenuItem", formData)
+                .then(() => {
+                    msg.reply("Skapad, smaklig måltid :yum:")
+                })
+                .catch((error) => {
+                    msg.reply("William har gjort fel");
+                    console.error(error);
+                });
+            });
+        }
+        else if (commandWords[1] === "person" && commandWords[2] === "jag") {
             let formData = new URLSearchParams();
 
             formData.append("name", msg.author.username);
-            formData.append("money", 500);
+            formData.append("money", config.userStartSum);
             formData.append("bought", 0);
             formData.append("spent", 0);
 
@@ -185,10 +211,19 @@ export const ExecuteCommand = (client, msg, command) => {
             }
             else if (commandWords.length === 3) {
                 games[0].heroes.map((hero) => {
-                    console.log()
                     if (commandWords[2].toLowerCase() === hero.name) {
                         let outcome = hero.outcomes[GetRandomInt(hero.outcomes.length)];
-                        msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: ${outcome.value}kr`);
+
+                        UpdateMoney(msg.author.username, outcome.value)
+                        .then((result) => {
+                            console.log(result);
+                            if (result) {
+                                msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: ${outcome.value}kr`);
+                            }
+                            else {
+                                msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: inga pengar för något gick fel`);
+                            }
+                        });
                     }
                 })
             }

@@ -1,6 +1,7 @@
 //import config from ;
 import { CheckCommand } from './src/CommandHandler.js';
 import { KeywordHandler } from './src/KeywordHandler.js';
+import { GetCitations } from './src/components/Tools.js'
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
@@ -26,7 +27,7 @@ client.on('ready', () => {
 client.on('messageCreate', (msg) => {
     if (msg.author.bot) return false;
 
-    if(msg.content.startsWith(config.callName)) {
+    else if(msg.content.startsWith(config.callName)) {
         CheckCommand(client, msg);
     }
     else {

@@ -6,7 +6,7 @@ export const KeywordHandler = (client, msg) => {
         let words = msg.content.split(" ");
         response.data.map((item) => {
             words.map((word) => {
-                if (word.toLowerCase() === item.keyword) {
+                if (word.toLowerCase() === item.name) {
                     msg.reply(item.callBack);
                     return;
                 }
