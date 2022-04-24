@@ -1,9 +1,15 @@
 {
     "callName": "!",
     "introduction": "Hej mitt namn är LaGrandeBot:robot:. Jag kan hjälpa till med diverse saker och säger blip blop.\nSkriv !help för att se mina kommand.",
-    "menuLink": "http://192.168.0.122:8000/menu",
-    "createMenuItemLink": "http://192.168.0.122:8000/createMenuItem",
-    "updateMoneyLink": "http://192.168.0.122:8000/updateMoney",
-    "foodTransactionLink": "/foodTransaction",
+    "menuLink": "/menu/",
+    "keywordLink": "/keyword/",
+    "createMenuItemLink": "/menu/create/",
+    "createKeywordLink": "/keyword/create/",
+    "updateMoneyLink": "/updateMoney/",
+    "foodTransactionLink": "/user/foodTransaction/",
+    "leaderboardLink": "/user/leaderboard/",
+    "createPersonLink": "/user/create/",
+    "addMoneyLink": "/user/addMoney",
+    "subtractMoneyLink": "/user/subtractMoney",
     "userStartSum": 500
 }

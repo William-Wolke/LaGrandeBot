@@ -6,5 +6,9 @@
     {
         "name": "meny",
         "response": "Skriv såhär för att skapa en måltid\n!skapa meny <namn inom (dubbel citattecken)> <pris> <valuta> <emoji>"
+    },
+    {
+        "name": "nyckelord",
+        "respone": "För att skapa ett nyckelord skriv såhär: !skapa nyckelord <nyckelord> <svar>"
     }
 ]

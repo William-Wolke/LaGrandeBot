@@ -17,7 +17,7 @@ export const CreateMenuList = (values) => {
 export const CreateLeaderBoard = (values) => {
     let list = '';
     values.map((item, index) => {
-        list += `#${index+1} ${item.name}. Pengar: ${item.money} Saker köpta: ${item.bought} Spenderade pengar: ${item.priceBought}\n`;
+        list += `#${index+1} ${item.name}. Pengar: ${item.money} Saker köpta: ${item.bought} Spenderade pengar: ${item.spent} NFTs ägda: ${item.ownedNFT.length}\n`;
     })
     return list;
 }

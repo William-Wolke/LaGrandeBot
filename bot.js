@@ -1,7 +1,6 @@
 //import config from ;
 import { CheckCommand } from './src/CommandHandler.js';
 import { KeywordHandler } from './src/KeywordHandler.js';
-import { GetCitations } from './src/components/Tools.js'
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
@@ -24,7 +23,7 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('messageCreate', (msg) => {
+client.on('messageCreate', async (msg) => {
     if (msg.author.bot) return false;
 
     else if(msg.content.startsWith(config.callName)) {

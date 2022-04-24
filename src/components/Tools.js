@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const GetCitations = async (array) => {
     let information = {
         beginingIndex: 0,
@@ -28,4 +30,15 @@ export const GetCitations = async (array) => {
         name = name.replaceAll('"', '');
         return { name: name, ending: information.endingIndex };
     }
+}
+
+export const AxiosGet = async (url, endpoint) => {
+    try {
+        let response = await axios.get(new URL(endpoint, url).href);
+        if (response.statusText === 'OK') return response.data;
+    } catch (e) {
+        console.log(e.message);
+        return;
+    }
+    
 }

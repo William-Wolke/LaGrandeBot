@@ -5,42 +5,55 @@ const require = createRequire(import.meta.url);
 const config = require('./data/config.json');
 require('dotenv').config();
 
-export const UpdateMoney = async (user, money) => {
-    let success = false;
-    let formData = new URLSearchParams();
+export const AddMoney = async (user, amount) => {
+    try {
+        let formData = new URLSearchParams();
 
-    formData.append("name", user);
-    formData.append("money", money);
+        formData.append("name", user);
+        formData.append("amount", amount);
 
-    await axios.post((config.updateMoneyLink), formData)
-    .then((result) => {
+        let result = await axios.post((new URL(config.addMoneyLink, process.env.db_url).href), formData)
+        
         console.log(result.data.message);
-        success = true;
-    })
-    .catch((error) => {
+        return true;
+        
+    } catch {
         console.log(result.data.message);
-        success = false;
-    });
-
-    return success
+        return false;
+    }
 }
 
-export const FoodTransaction = async (user, money) => {
-    let success = false;
-    let formData = new URLSearchParams();
+export const SubtractMoney = async (user, amount) => {
+    try {
+        let formData = new URLSearchParams();
 
-    formData.append("name", user);
-    formData.append("money", money);
+        formData.append("name", user);
+        formData.append("amount", amount);
 
-    await axios.post(process.env.db_url + config.foodTransactionLink, formData)
-    .then((result) => {
+        let result = await axios.post((new URL(config.subtractMoneyLink, process.env.db_url).href), formData)
+        
+        console.log(result.data.message);
+        return true;
+        
+    } catch {
+        console.log(result.data.message);
+        return false;
+    }
+}
+
+export const FoodTransaction = async (user, amount) => {
+    try {
+        let formData = new URLSearchParams();
+
+        formData.append("name", user);
+        formData.append("amount", amount);
+
+        let result = await axios.post(new URL(config.foodTransactionLink, process.env.db_url).href , formData);
         console.log(result.data);
-        success = true;
-    })
-    .catch((error) => {
-        console.error(error);
-        success = false;
-    });
-
-    return success;
+        return true;
+    }
+    catch (e) {
+        console.log(e.message);
+        return false;
+    }
 }

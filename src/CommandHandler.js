@@ -1,7 +1,7 @@
 import { CreateCommandList, CreateMenuList, CreateLeaderBoard, SimpleList, GetRandomInt } from './ListHandler.js';
 import { createRequire } from "module";
-import { GetCitations } from './components/Tools.js';
-import { UpdateMoney, FoodTransaction } from './ScoreHandler.js';
+import { GetCitations, AxiosGet } from './components/Tools.js';
+import { AddMoney, FoodTransaction } from './ScoreHandler.js';
 import axios from 'axios';
 const require = createRequire(import.meta.url);
 
@@ -10,31 +10,30 @@ const config = require('./data/config.json');
 const games = require('./data/games.json');
 const create = require('./data/create.json');
 
-export const CheckCommand = (client, msg) => {
+export const CheckCommand = async (client, msg) => {
     let valid = false;
 
-    if (msg.content === config.callName) {
-        msg.reply(config.introduction);
-    }
+    if (msg.content === config.callName) return msg.reply(config.introduction);
+
     valid = commands.map((item) => {
         if (msg.content.toLowerCase().startsWith(config.callName + item)) {
             ExecuteCommand(client, msg, item);
             return true;
         }
     });
-    if (!valid) {
-        msg.reply('Ogiltigt command, skriv !hjälp för psykisk hjälp.');
-    }
+    if (valid) return;
+    
+    msg.reply('Ogiltigt command, skriv !hjälp för psykisk hjälp.');
 }
 
-export const ExecuteCommand = (client, msg, command) => {
+export const ExecuteCommand = async (client, msg, command) => {
     let commandWords = msg.content.split(' ');
     if (command === 'hjälp') {
         let commandList = CreateCommandList(config.callName, commands);
         msg.reply(`Hej ${msg.author.username}, här är alla kommand du söker: \n` + commandList);
     }
     else if(command === 'beställ') {
-        axios.get(config.menuLink)
+        axios.get(new URL(config.menuLink, process.env.db_url).href)
         .then((menu) => {
             if (commandWords.length === 1) {
                 let list = CreateMenuList(menu.data);
@@ -76,7 +75,7 @@ export const ExecuteCommand = (client, msg, command) => {
                             }
                         });
                     }
-                })
+                });
             }
         })
         .catch((error) => {
@@ -122,36 +121,39 @@ export const ExecuteCommand = (client, msg, command) => {
         
     }
     else if (command === 'skapa') {
+        // !skapa
         if (commandWords.length === 1) {
             let list = SimpleList(create, "name");
             msg.reply(`Dessa saker kan du skapa:\n${list}`);
         }
+        // !skapa <item>
         else if (commandWords.length === 2) {
-            create.map((item) => {
+            let valid = false;
+            valid = create.map((item) => {
                 if (commandWords[1] === item.name) {
                     msg.reply(`${item.response}`);
+                    return true
                 }
             });
+            if (!valid) return msg.reply(`Du kan inte skapa: ${commandWords[1]}`);
         }
         else if (commandWords[1] === "meny" && commandWords.length >= 5) {
 
             let formData = new URLSearchParams();
             GetCitations(commandWords)
             .then(({ name, ending}) => {
-                console.log(ending);
-            
                 formData.append('name', name);
                 formData.append('price', commandWords[ending + 1]);
                 formData.append('currency', commandWords[ending + 2]);
                 formData.append('emoji', commandWords[ending + 3]);
                 
-                axios.post("http://192.168.0.122:8000/createMenuItem", formData)
+                axios.post(new URL(config.createMenuItemLink, process.env.db_url).href, formData)
                 .then(() => {
-                    msg.reply("Skapad, smaklig måltid :yum:")
+                    return msg.reply("Skapad, smaklig måltid :yum:")
                 })
                 .catch((error) => {
-                    msg.reply("William har gjort fel");
                     console.error(error);
+                    return msg.reply("William har gjort fel");
                 });
             });
         }
@@ -163,7 +165,7 @@ export const ExecuteCommand = (client, msg, command) => {
             formData.append("bought", 0);
             formData.append("spent", 0);
 
-            axios.post("http://192.168.0.122:8000/createPerson", formData)
+            axios.post(new URL(config.createPersonLink, process.env.db_url).href, formData)
             .then((res) => {
                 msg.reply("Du är skapad :pray:");
             })
@@ -171,57 +173,58 @@ export const ExecuteCommand = (client, msg, command) => {
                 msg.reply("William har gjort fel... igen :pensive: :skull:")
             });
         }
-        else if (commandWords[1] === 'nyckelord') {
+        else if (commandWords[1] === 'nyckelord' && commandWords.length === 4) {
             let callBack = commandWords.filter((item, index) => index >= 3).join(" "); 
             let formData = new URLSearchParams();
             console.log(commandWords[2], callBack);
             formData.append("keyword", commandWords[2]);
             formData.append("callBack", callBack);
 
-            axios.post("http://192.168.0.122:8000/createKeyword", formData)
+            axios.post(new URL(config.createKeywordLink, process.env.db_url).href, formData)
             .then((response) => {
-                msg.reply("Nyckelord skapat");
+                return msg.reply("Nyckelord skapat");
             })
             .catch((error) => {
-                msg.reply("William har gjort fel... igen :pensive: :skull:... igen :coolsol:");
                 console.error(error);
+                return msg.reply("William har gjort fel... igen :pensive: :skull:... igen :coolsol:");
             });
         }
     }
     else if (command === 'topplista') {
-        axios.get("http://192.168.0.122:8000/leaderboard")
-        .then((response) => {
-            console.log(response.data);
-            let list = CreateLeaderBoard(response.data);
-            msg.reply(`Här är topplistan:\n${list}`);
-        })
-        .catch(() => {
-
-        });
+        try {
+            let response = await AxiosGet(process.env.db_url, config.leaderboardLink);
+            console.log(response);
+            let list = CreateLeaderBoard(response);
+            if (response) return msg.reply(`Här är topplistan:\n${list}`);
+            throw new Error("Listan är tom?:thinking:");
+        } catch (e) {
+            console.log(e.message);
+            return msg.reply(e.message);
+        }
     }
     else if (command === 'spela') {
         if (commandWords.length === 1) {
             let list = SimpleList(games, 'name');
-            msg.reply(`Spellistan:\n${list}`);
+            return msg.reply(`Spellistan:\n${list}`);
         }
         else if (commandWords[1] === 'bloons') {
             if (commandWords.length === 2) {
                 let list = SimpleList(games[0].heroes, 'name');
-                msg.reply(`Du vill spela bloons på lektions/arbetstid bra val\nDe här hjältarna finns det skriv deras namn efter ${config.callName}spela bloons\n${list}`);
+                return msg.reply(`Du vill spela bloons på lektions/arbetstid bra val\nDe här hjältarna finns det skriv deras namn efter ${config.callName}spela bloons\n${list}`);
             }
             else if (commandWords.length === 3) {
                 games[0].heroes.map((hero) => {
                     if (commandWords[2].toLowerCase() === hero.name) {
                         let outcome = hero.outcomes[GetRandomInt(hero.outcomes.length)];
 
-                        UpdateMoney(msg.author.username, outcome.value)
+                        AddMoney(msg.author.username, outcome.value)
                         .then((result) => {
                             console.log(result);
                             if (result) {
-                                msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: ${outcome.value}kr`);
+                                return msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: ${outcome.value}kr`);
                             }
                             else {
-                                msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: inga pengar för något gick fel`);
+                                return msg.reply(`${hero.message}\n${outcome.message}\nDu tjänade: inga pengar för något gick fel`);
                             }
                         });
                     }
