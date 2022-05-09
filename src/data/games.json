@@ -22,12 +22,12 @@
                 "message": "Party monkeys!!!:monkey:",
                 "outcomes": [
                     {
-                        "message": "Du satte Fusty tillsammans med snipermonkey längst bak och fusty når inte ballongerna.\nDu förlorar på runda 40 eftersom Fusty inte kunde smälla moaben.",
-                        "value": 40
+                        "message": "Benji startade ett party som varade hela vägen fram till runda 63. \n Det blev tyvärr så trångt att ballongerna började spilla över mållinjen och du förlorade.👯‍♀️",
+                        "value": 63
                     },
                     {
-                        "message": "Du glum:skull: att köpa camosikten till dina apor och fusty:monkey: glömde glasögonen hemma.\nDu förlorar på runda 34 eftersom att coma ballongerna smyger sig förbi.",
-                        "value": 34
+                        "message": "Du glum💀 att spoofa din IP när Benji haxade Monkey Intelligence Bureau (MIB) och de raidade dig för att de trodde att du var ett hot mot bananrepublikens säkerhet.\nDu förlorade på runda 1 på grund av dina dåliga nätsäkerhetsdicipliner.",
+                        "value": 1
                     }
                 ]
             },
@@ -36,11 +36,11 @@
                 "message": "Jag är en med naturen eller vad fan obyn nu säger :person_shrugging:!!!:monkey:",
                 "outcomes": [
                     {
-                        "message": "Du satte Fusty tillsammans med snipermonkey längst bak och fusty når inte ballongerna.\nDu förlorar på runda 40 eftersom Fusty inte kunde smälla moaben.",
-                        "value": 40
+                        "message": "Du satte Obyn tillsammans med druider nära banan, riktigt snyggt faktiskt.\nMen tyvärr är du ekonomiskt opålitlig och hade inte råd att köpa sista uppgraderingen på druiden, du förlorade mot en DDT på runda 96.",
+                        "value": 96
                     },
                     {
-                        "message": "Du glum:skull: att köpa camosikten till dina apor och fusty:monkey: glömde glasögonen hemma.\nDu förlorar på runda 34 eftersom att coma ballongerna smyger sig förbi.",
+                        "message": "Du glum💀 att köpa camosikten och de gömde sig bland löven i skogen. Obyn bor i skogen men kan tydligen inte se skillnad på löv och ballongrnas latex.\nDu förlorar på runda 34 eftersom att coma ballongerna smyger sig förbi.",
                         "value": 34
                     }
                 ]

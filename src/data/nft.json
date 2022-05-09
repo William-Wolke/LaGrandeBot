@@ -1,6 +1,8 @@
 [
     {
         "name": "Cool Sol",
-        "owner": ""
+        "owner": "",
+        "boughtFor": "",
+        "link": ""
     }
 ]
