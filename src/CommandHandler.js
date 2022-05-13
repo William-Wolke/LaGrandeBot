@@ -43,6 +43,5 @@ export const ExecuteCommand = async (client, msg, command) => {
     
     else if (command === 'spela') return Games(commandWords, msg);
     
-    else if (command === 'nft') return sendNFT(msg, client);
-    
+    else if (command === 'nft') return sendNFT(msg, commandWords);
 }

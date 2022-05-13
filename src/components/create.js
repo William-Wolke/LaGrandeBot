@@ -74,4 +74,18 @@ export const Create = async (commandWords, msg) => {
             return msg.reply("William har gjort fel... igen :pensive: :skull:... igen :coolsol:");
         });
     }
+    else if (commandWords[1] === 'nft' && commandWords[2]) {
+
+        if (commandWords[2].endsWith('.jpg') || commandWords[2].endsWith('.png') || commandWords[2].endsWith('.jpeg')) {
+            try {
+                let formData = new URLSearchParams();
+                formData.append("url", msg.attachments.first()?.url);
+                formData.append("name", commandWords[2]);
+                const result = await axios.post(new URL(config.createNFT, process.env.db_url).href, formData);
+            } catch (e) {
+                console.error(e.message);
+            }
+            
+        }
+    }
 }

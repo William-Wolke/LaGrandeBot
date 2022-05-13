@@ -11,5 +11,7 @@
     "createPersonLink": "/user/create/",
     "addMoneyLink": "/user/addMoney",
     "subtractMoneyLink": "/user/subtractMoney",
+    "getNFT": "/statics/nft/",
+    "createNFT": "/nft/create/",
     "userStartSum": 500
 }
