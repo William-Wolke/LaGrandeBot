@@ -4,6 +4,7 @@ import axios from 'axios';
 const require = createRequire(import.meta.url);
 const create = require('../data/create.json');
 const config = require('../data/config.json');
+const paths = require('../data/paths.json');
 
 export const Create = async (commandWords, msg) => {
     // !skapa
@@ -32,7 +33,7 @@ export const Create = async (commandWords, msg) => {
             formData.append('currency', commandWords[ending + 2]);
             formData.append('emoji', commandWords[ending + 3]);
             
-            axios.post(new URL(config.createMenuItemLink, process.env.db_url).href, formData)
+            axios.post(new URL(paths.createMenuItemLink, process.env.db_url).href, formData)
             .then(() => {
                 return msg.reply("Skapad, smaklig måltid :yum:")
             })
@@ -50,7 +51,7 @@ export const Create = async (commandWords, msg) => {
         formData.append("bought", 0);
         formData.append("spent", 0);
 
-        axios.post(new URL(config.createPersonLink, process.env.db_url).href, formData)
+        axios.post(new URL(paths.createPersonLink, process.env.db_url).href, formData)
         .then((res) => {
             msg.reply("Du är skapad :pray:");
         })
@@ -65,7 +66,7 @@ export const Create = async (commandWords, msg) => {
         formData.append("keyword", commandWords[2]);
         formData.append("callBack", callBack);
 
-        axios.post(new URL(config.createKeywordLink, process.env.db_url).href, formData)
+        axios.post(new URL(paths.createKeywordLink, process.env.db_url).href, formData)
         .then((response) => {
             return msg.reply("Nyckelord skapat");
         })
@@ -81,7 +82,7 @@ export const Create = async (commandWords, msg) => {
                 let formData = new URLSearchParams();
                 formData.append("url", msg.attachments.first()?.url);
                 formData.append("name", commandWords[2]);
-                const result = await axios.post(new URL(config.createNFT, process.env.db_url).href, formData);
+                const result = await axios.post(new URL(paths.createNFT, process.env.db_url).href, formData);
             } catch (e) {
                 console.error(e.message);
             }

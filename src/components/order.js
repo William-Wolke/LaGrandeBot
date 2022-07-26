@@ -3,11 +3,11 @@ import { createRequire } from 'module';
 import { FoodTransaction } from "../ScoreHandler.js";
 import { GetRandomInt, CreateMenuList } from "../ListHandler.js";
 const require = createRequire(import.meta.url);
-const config = require('../data/config.json');
+const paths = require('../data/paths.json');
 require('dotenv').config();
 
 export const Order = (commandWords, msg) => {
-    axios.get(new URL(config.menuLink, process.env.db_url).href)
+    axios.get(new URL(paths.menuLink, process.env.db_url).href)
         .then((menu) => {
             if (commandWords.length === 1) {
                 let list = CreateMenuList(menu.data);

@@ -19,7 +19,7 @@ const client = new Client({
 });
 
 client.on('ready', () => {
-    client.user.setActivity("beep boop", {type: "PLAYING"});
+    client.user.setActivity(config.activity, {type: config.activityType});
     console.log(`Logged in as ${client.user.tag}!`);
 });
 

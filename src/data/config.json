@@ -1,17 +1,7 @@
 {
     "callName": "!",
     "introduction": "Hej mitt namn är LaGrandeBot:robot:. Jag kan hjälpa till med diverse saker och säger blip blop.\nSkriv !help för att se mina kommand.",
-    "menuLink": "/menu/",
-    "keywordLink": "/keyword/",
-    "createMenuItemLink": "/menu/create/",
-    "createKeywordLink": "/keyword/create/",
-    "updateMoneyLink": "/updateMoney/",
-    "foodTransactionLink": "/user/foodTransaction/",
-    "leaderboardLink": "/user/leaderboard/",
-    "createPersonLink": "/user/create/",
-    "addMoneyLink": "/user/addMoney",
-    "subtractMoneyLink": "/user/subtractMoney",
-    "getNFT": "/statics/nft/",
-    "createNFT": "/nft/create/",
+    "activity": "beep boop",
+    "activityType": "PLAYING",
     "userStartSum": 500
 }

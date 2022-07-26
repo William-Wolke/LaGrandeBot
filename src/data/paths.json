@@ -1,0 +1,14 @@
+{
+    "menuLink": "/menu/",
+    "keywordLink": "/keyword/",
+    "createMenuItemLink": "/menu/create/",
+    "createKeywordLink": "/keyword/create/",
+    "updateMoneyLink": "/updateMoney/",
+    "foodTransactionLink": "/user/foodTransaction/",
+    "leaderboardLink": "/user/leaderboard/",
+    "createPersonLink": "/user/create/",
+    "addMoneyLink": "/user/addMoney",
+    "subtractMoneyLink": "/user/subtractMoney",
+    "getNFT": "/statics/nft/",
+    "createNFT": "/nft/create/"
+}
