@@ -1,21 +1,19 @@
-import { createRequire } from 'module';
-import { GetCitations } from '../components/Tools.js';
-import axios from 'axios';
-const require = createRequire(import.meta.url);
-const create = require('../data/create.json');
+const { GetCitations } = require('../helpers.js');
+const axios = require('axios');
+const createHints = require('../data/create.json');
 const config = require('../data/config.json');
 const paths = require('../data/paths.json');
 
-export const Create = async (commandWords, msg) => {
+const create = async (commandWords, msg) => {
     // !skapa
     if (commandWords.length === 1) {
-        let list = SimpleList(create, "name");
+        let list = SimpleList(createHints, "name");
         msg.reply(`Dessa saker kan du skapa:\n${list}`);
     }
     // !skapa <item>
     else if (commandWords.length === 2) {
         let valid = false;
-        valid = create.map((item) => {
+        valid = createHints.map((item) => {
             if (commandWords[1] === item.name) {
                 msg.reply(`${item.response}`);
                 return true
@@ -90,3 +88,5 @@ export const Create = async (commandWords, msg) => {
         }
     }
 }
+
+module.exports = { create }

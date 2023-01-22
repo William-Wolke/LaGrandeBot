@@ -1,4 +1,4 @@
-export const CreateCommandList = (prefix, values) => {
+const CreateCommandList = (prefix, values) => {
     let list = '';
     values.map((item) => {
         list += prefix + item + '\n';
@@ -6,7 +6,7 @@ export const CreateCommandList = (prefix, values) => {
     return list;
 }
 
-export const CreateMenuList = (values) => {
+const CreateMenuList = (values) => {
     let list = '';
     values.map((item) => {
         list += `${item.name}: ${item.price}${item.currency}${item.emoji}\n`;
@@ -14,7 +14,7 @@ export const CreateMenuList = (values) => {
     return list;
 }
 
-export const CreateLeaderBoard = (values) => {
+const CreateLeaderBoard = (values) => {
     let list = '';
     values.map((item, index) => {
         list += `#${index+1} ${item.name}. Pengar: ${item.money} Saker köpta: ${item.bought} Spenderade pengar: ${item.spent} NFTs ägda: ${item.ownedNFT.length}\n`;
@@ -22,7 +22,7 @@ export const CreateLeaderBoard = (values) => {
     return list;
 }
 
-export const SimpleList = (values, attribute) => {
+const SimpleList = (values, attribute) => {
     let list = '';
     values.map((item) => {
         list += `${item[attribute]}\n`;
@@ -30,6 +30,8 @@ export const SimpleList = (values, attribute) => {
     return list;
 }
 
-export const GetRandomInt = (max) => {
+const GetRandomInt = (max) => {
     return Math.floor(Math.random() * max);
 }
+
+module.exports = { CreateCommandList, CreateMenuList, CreateLeaderBoard, SimpleList, GetRandomInt }

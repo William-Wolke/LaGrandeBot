@@ -1,6 +1,6 @@
-import axios from "axios";
+const axios =require("axios");
 
-export const GetCitations = async (array) => {
+const GetCitations = async (array) => {
     let information = {
         beginingIndex: 0,
         endingIndex: 0
@@ -32,7 +32,7 @@ export const GetCitations = async (array) => {
     }
 }
 
-export const AxiosGet = async (url, endpoint) => {
+const AxiosGet = async (url, endpoint) => {
     try {
         let response = await axios.get(new URL(endpoint, url).href);
         if (response.statusText === 'OK') return response.data;
@@ -41,4 +41,19 @@ export const AxiosGet = async (url, endpoint) => {
         return;
     }
     
+}
+
+const AxiosPost = async (url, endpoint, x) => {
+    try {
+        let response = await axios.post(new URL(endpoint, url).href);
+        if (response.statusText === 'OK') return response.data;
+    } catch (e) {
+        console.log(e.message)
+        return;
+    }
+}
+
+module.exports = {
+    GetCitations,
+    AxiosGet
 }

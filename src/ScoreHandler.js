@@ -1,11 +1,8 @@
-import axios from "axios"
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-
+const axios = require("axios")
 const paths = require('./data/paths.json');
 require('dotenv').config();
 
-export const AddMoney = async (user, amount) => {
+const addMoney = async (user, amount) => {
     try {
         let formData = new URLSearchParams();
 
@@ -23,7 +20,7 @@ export const AddMoney = async (user, amount) => {
     }
 }
 
-export const SubtractMoney = async (user, amount) => {
+const subtractMoney = async (user, amount) => {
     try {
         let formData = new URLSearchParams();
 
@@ -41,7 +38,7 @@ export const SubtractMoney = async (user, amount) => {
     }
 }
 
-export const FoodTransaction = async (user, amount) => {
+const foodTransaction = async (user, amount) => {
     try {
         let formData = new URLSearchParams();
 
@@ -57,3 +54,5 @@ export const FoodTransaction = async (user, amount) => {
         return false;
     }
 }
+
+module.exports = { addMoney, subtractMoney, foodTransaction };

@@ -1,6 +1,6 @@
-import { GetRandomInt } from '../ListHandler.js';
+const { GetRandomInt } = require('../ListHandler.js');
 
-export const Quote = async (commandWords, client, msg) => {
+const quote = async (commandWords, client, msg) => {
     if (commandWords.length === 1) {
         const quoteChannel = client.channels.cache.get("694162172351348736");
         quoteChannel.messages.fetch({ limit: 100 }).then(messages => {
@@ -36,3 +36,5 @@ export const Quote = async (commandWords, client, msg) => {
         })
     }
 }
+
+module.exports = { quote };

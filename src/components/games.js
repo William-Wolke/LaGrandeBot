@@ -1,19 +1,17 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const games = require('../data/games.json');
+const availableGames = require('../data/games.json');
 
-export const Games = async (commandWords, msg) => {
+const games = async (commandWords, msg) => {
     if (commandWords.length === 1) {
         let list = SimpleList(games, 'name');
         return msg.reply(`Spellistan:\n${list}`);
     }
     else if (commandWords[1] === 'bloons') {
         if (commandWords.length === 2) {
-            let list = SimpleList(games[0].heroes, 'name');
+            let list = SimpleList(availableGames[0].heroes, 'name');
             return msg.reply(`Du vill spela bloons på lektions/arbetstid bra val\nDe här hjältarna finns det skriv deras namn efter ${config.callName}spela bloons\n${list}`);
         }
         else if (commandWords.length === 3) {
-            games[0].heroes.map((hero) => {
+            availableGames[0].heroes.map((hero) => {
                 if (commandWords[2].toLowerCase() === hero.name) {
                     let outcome = hero.outcomes[GetRandomInt(hero.outcomes.length)];
 
@@ -35,3 +33,5 @@ export const Games = async (commandWords, msg) => {
 
     }
 }
+
+module.exports = { games }

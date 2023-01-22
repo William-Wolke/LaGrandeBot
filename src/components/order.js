@@ -1,12 +1,10 @@
-import axios from "axios";
-import { createRequire } from 'module';
-import { FoodTransaction } from "../ScoreHandler.js";
-import { GetRandomInt, CreateMenuList } from "../ListHandler.js";
-const require = createRequire(import.meta.url);
+const axios = require("axios");
+const { FoodTransaction } = require("../ScoreHandler.js");
+const { GetRandomInt, CreateMenuList } = require("../ListHandler.js");
 const paths = require('../data/paths.json');
 require('dotenv').config();
 
-export const Order = (commandWords, msg) => {
+const order = (commandWords, msg) => {
     axios.get(new URL(paths.menuLink, process.env.db_url).href)
         .then((menu) => {
             if (commandWords.length === 1) {
@@ -57,3 +55,5 @@ export const Order = (commandWords, msg) => {
             console.error(error);
         });
 }
+
+module.exports = { order }

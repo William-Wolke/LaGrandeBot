@@ -1,12 +1,10 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
 const path = require('node:path');
 const axios = require('axios');
 const fs = require('fs');
 const { MessageAttachment, MessageEmbed } = require("discord.js");
 const config = require('../data/config.json');
 
-export const sendNFT = async (msg, commandWords) => {
+const sendNFT = async (msg, commandWords) => {
     if (commandWords.length === 2) {
         try {
         let url = new URL(config.getNFT + commandWords[1], process.env.db_url)
@@ -48,3 +46,5 @@ export const sendNFT = async (msg, commandWords) => {
         }
     }
 };
+
+module.exports = { sendNFT }

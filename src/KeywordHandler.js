@@ -1,10 +1,7 @@
-import axios from "axios";
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
+const axios = require("axios");
 const paths = require('./data/paths.json');
 
-
-export const KeywordHandler = (client, msg) => {
+const keywordHandler = (client, msg) => {
     axios.get(new URL(paths.keywordLink, process.env.db_url).href)
     .then(response => {
         let words = msg.content.split(" ");
@@ -18,3 +15,5 @@ export const KeywordHandler = (client, msg) => {
         });
     });
 }
+
+module.exports = { keywordHandler }
